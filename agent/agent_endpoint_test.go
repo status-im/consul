@@ -36,6 +36,7 @@ import (
 	"github.com/hashicorp/consul/types"
 	"github.com/hashicorp/go-uuid"
 	"github.com/hashicorp/serf/serf"
+	"github.com/mitchellh/hashstructure"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -353,15 +354,14 @@ func TestAgent_Service(t *testing.T) {
 	// API struct types.
 	expectProxy := proxy
 	expectProxy.Upstreams =
-		structs.TestAddDefaultsToUpstreams(t, sidecarProxy.Proxy.Upstreams)
+		structs.TestAddDefaultsToUpstreams(t, sidecarProxy.Proxy.Upstreams, *structs.DefaultEnterpriseMeta())
 
 	expectedResponse := &api.AgentService{
-		Kind:        api.ServiceKindConnectProxy,
-		ID:          "web-sidecar-proxy",
-		Service:     "web-sidecar-proxy",
-		Port:        8000,
-		Proxy:       expectProxy.ToAPI(),
-		ContentHash: "4c7d5f8d3748be6d",
+		Kind:    api.ServiceKindConnectProxy,
+		ID:      "web-sidecar-proxy",
+		Service: "web-sidecar-proxy",
+		Port:    8000,
+		Proxy:   expectProxy.ToAPI(),
 		Weights: api.AgentWeights{
 			Passing: 1,
 			Warning: 1,
@@ -370,11 +370,21 @@ func TestAgent_Service(t *testing.T) {
 		Tags: []string{},
 	}
 	fillAgentServiceEnterpriseMeta(expectedResponse, structs.DefaultEnterpriseMeta())
+	hash1, err := hashstructure.Hash(expectedResponse, nil)
+	if err != nil {
+		t.Fatalf("error generating hash: %v", err)
+	}
+	expectedResponse.ContentHash = fmt.Sprintf("%x", hash1)
 
 	// Copy and modify
 	updatedResponse := *expectedResponse
 	updatedResponse.Port = 9999
-	updatedResponse.ContentHash = "713435ba1f5badcf"
+	updatedResponse.ContentHash = "" // clear field before generating a new hash
+	hash2, err := hashstructure.Hash(updatedResponse, nil)
+	if err != nil {
+		t.Fatalf("error generating hash: %v", err)
+	}
+	updatedResponse.ContentHash = fmt.Sprintf("%x", hash2)
 
 	// Simple response for non-proxy service registered in TestAgent config
 	expectWebResponse := &api.AgentService{
@@ -3291,8 +3301,18 @@ func testAgent_RegisterService_UnmanagedConnectProxy(t *testing.T, extraHCL stri
 	svc := a.State.Service(sid)
 	require.NotNil(t, svc, "has service")
 	require.Equal(t, structs.ServiceKindConnectProxy, svc.Kind)
-	// Registration must set that default type
-	args.Proxy.Upstreams[0].DestinationType = api.UpstreamDestTypeService
+
+	// Registration sets default types and namespaces
+	for i := range args.Proxy.Upstreams {
+		if args.Proxy.Upstreams[i].DestinationType == "" {
+			args.Proxy.Upstreams[i].DestinationType = api.UpstreamDestTypeService
+		}
+		if args.Proxy.Upstreams[i].DestinationNamespace == "" {
+			args.Proxy.Upstreams[i].DestinationNamespace =
+				structs.DefaultEnterpriseMeta().NamespaceOrDefault()
+		}
+	}
+
 	require.Equal(t, args.Proxy, svc.Proxy.ToAPI())
 
 	// Ensure the token was configured
