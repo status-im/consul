@@ -49,7 +49,7 @@
   "devDependencies": {
     "@hashicorp/platform-cli": "^0.2.0",
     "@hashicorp/platform-nextjs-plugin": "^0.1.0",
-    "@hashicorp/platform-types": "^0.1.0",
+    "@hashicorp/platform-types": "^0.1.1",
     "@types/react": "^17.0.3",
     "dart-linkcheck": "2.0.15",
     "husky": "4.3.7",
