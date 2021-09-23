@@ -160,7 +160,7 @@
     "refractor": "^3.3.1",
     "remark-autolink-headings": "^6.0.1",
     "remark-hbs": "^0.4.0",
-    "sass": "^1.28.0",
+    "sass": "^1.42.1",
     "tape": "^5.0.1",
     "text-encoding": "^0.7.0",
     "tippy.js": "^6.2.7",
