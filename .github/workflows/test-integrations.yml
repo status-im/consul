@@ -95,7 +95,7 @@ jobs:
           ref: ${{ matrix.nomad-version }}
 
       - name: Install Go
-        uses: actions/setup-go@fac708d6674e30b6ba41289acaab6d4b75aa0753 # v4.0.1
+        uses: actions/setup-go@0c52d547c9bc32b1aa3301fd7a9cb496313a4491 # v5.0.0
         with:
           # Do not explicitly set Go version here, as it should depend on what Nomad declares.
           go-version-file: 'go.mod'
@@ -178,7 +178,7 @@ jobs:
         if: ${{ endsWith(github.repository, '-enterprise') }}
         run: git config --global url."https://${{ secrets.ELEVATED_GITHUB_TOKEN }}:@github.com".insteadOf "https://github.com"
 
-      - uses: actions/setup-go@fac708d6674e30b6ba41289acaab6d4b75aa0753 # v4.0.1
+      - uses: actions/setup-go@0c52d547c9bc32b1aa3301fd7a9cb496313a4491 # v5.0.0
         with:
           # We use the current Consul Go version here since Vault is installed as a binary
           # and tests are run from the Consul repo.
@@ -314,7 +314,7 @@ jobs:
       AWS_LAMBDA_REGION: us-west-2
     steps:
       - uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
-      - uses: actions/setup-go@fac708d6674e30b6ba41289acaab6d4b75aa0753 # v4.0.1
+      - uses: actions/setup-go@0c52d547c9bc32b1aa3301fd7a9cb496313a4491 # v5.0.0
         with:
           go-version: ${{ needs.get-go-version.outputs.go-version }}
 
@@ -403,7 +403,7 @@ jobs:
       - name: Setup Git
         if: ${{ endsWith(github.repository, '-enterprise') }}
         run: git config --global url."https://${{ secrets.ELEVATED_GITHUB_TOKEN }}:@github.com".insteadOf "https://github.com"
-      - uses: actions/setup-go@fac708d6674e30b6ba41289acaab6d4b75aa0753 # v4.0.1
+      - uses: actions/setup-go@0c52d547c9bc32b1aa3301fd7a9cb496313a4491 # v5.0.0
         with:
           go-version: ${{ needs.get-go-version.outputs.go-version }}
       - run: go env
@@ -517,7 +517,7 @@ jobs:
       - name: Setup Git
         if: ${{ endsWith(github.repository, '-enterprise') }}
         run: git config --global url."https://${{ secrets.ELEVATED_GITHUB_TOKEN }}:@github.com".insteadOf "https://github.com"
-      - uses: actions/setup-go@fac708d6674e30b6ba41289acaab6d4b75aa0753 # v4.0.1
+      - uses: actions/setup-go@0c52d547c9bc32b1aa3301fd7a9cb496313a4491 # v5.0.0
         with:
           go-version: ${{ needs.get-go-version.outputs.go-version }}
       - run: go env
