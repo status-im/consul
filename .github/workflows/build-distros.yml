@@ -31,7 +31,7 @@ jobs:
       compute-large: ${{ steps.setup-outputs.outputs.compute-large }}
       compute-xl: ${{ steps.setup-outputs.outputs.compute-xl }}
     steps:
-    - uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.4
+    - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
     - id: setup-outputs
       name: Setup outputs
       run: ./.github/scripts/get_runner_classes.sh
@@ -60,7 +60,7 @@ jobs:
       XC_OS: "freebsd linux windows"
     runs-on: ${{ fromJSON(needs.setup.outputs.compute-xl) }}
     steps:
-    - uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.4
+    - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
 
     # NOTE: This step is specifically needed for ENT. It allows us to access the required private HashiCorp repos.
     - name: Setup Git
@@ -85,7 +85,7 @@ jobs:
       XC_OS: "darwin freebsd linux solaris windows"
     runs-on: ${{ fromJSON(needs.setup.outputs.compute-xl) }}
     steps:
-    - uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.4
+    - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
 
     # NOTE: This step is specifically needed for ENT. It allows us to access the required private HashiCorp repos.
     - name: Setup Git
@@ -111,7 +111,7 @@ jobs:
       CGO_ENABLED: 1
       GOOS: linux
     steps:
-    - uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.4
+    - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
 
     # NOTE: This step is specifically needed for ENT. It allows us to access the required private HashiCorp repos.
     - name: Setup Git
@@ -138,7 +138,7 @@ jobs:
     - check-go-mod
     runs-on: ${{ fromJSON(needs.setup.outputs.compute-xl) }}
     steps:
-    - uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.4
+    - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
 
     # NOTE: This step is specifically needed for ENT. It allows us to access the required private HashiCorp repos.
     - name: Setup Git

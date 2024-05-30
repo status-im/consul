@@ -22,7 +22,7 @@ jobs:
     outputs:
       skip-ci: ${{ steps.read-files.outputs.skip-ci }}
     steps:
-      - uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.4
+      - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
         with:
           fetch-depth: 0
       - name: Get changed files
@@ -40,7 +40,7 @@ jobs:
       compute-large: ${{ steps.setup-outputs.outputs.compute-large }}
       compute-xl: ${{ steps.setup-outputs.outputs.compute-xl }}
     steps:
-      - uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.4
+      - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
       - id: setup-outputs
         name: Setup outputs
         run: ./.github/scripts/get_runner_classes.sh
@@ -59,7 +59,7 @@ jobs:
       && (github.actor != 'dependabot[bot]') && (github.actor != 'hc-github-team-consul-core') }}
 
     steps:
-      - uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.4
+      - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
 
       - name: Set up Go
         uses: actions/setup-go@0c52d547c9bc32b1aa3301fd7a9cb496313a4491 # v5.0.0
@@ -67,7 +67,7 @@ jobs:
           go-version: ${{ needs.get-go-version.outputs.go-version }}
 
       - name: Clone Security Scanner repo
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.4
+        uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
         with:
           repository: hashicorp/security-scanner
           token: ${{ secrets.HASHIBOT_PRODSEC_GITHUB_TOKEN }}
