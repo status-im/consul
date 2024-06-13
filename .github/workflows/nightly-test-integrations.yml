@@ -32,7 +32,7 @@ jobs:
       enterprise: ${{ steps.runners.outputs.enterprise }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.4
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
         with:
           ref: ${{ inputs.branch }}
       - id: runners
@@ -62,7 +62,7 @@ jobs:
       envoy-matrix: ${{ steps.set-matrix.outputs.envoy-matrix }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.4
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
         with:
           ref: ${{ inputs.branch }}
       - name: Generate Envoy Job Matrix
@@ -115,7 +115,7 @@ jobs:
       AWS_LAMBDA_REGION: us-west-2
     steps:
       - name: Checkout code
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.4
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
         with:
           ref: ${{ inputs.branch }}
       - uses: actions/setup-go@0c52d547c9bc32b1aa3301fd7a9cb496313a4491 # v5.0.0
@@ -210,7 +210,7 @@ jobs:
       ENVOY_VERSION: "1.27.5"
     steps:
       - name: Checkout code
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.4
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
         with:
           ref: ${{ inputs.branch }}
       # NOTE: This step is specifically needed for ENT. It allows us to access the required private HashiCorp repos.
@@ -334,7 +334,7 @@ jobs:
       CONSUL_LATEST_VERSION: ${{ matrix.consul-version }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.4
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
         with:
           ref: ${{ inputs.branch }}
       # NOTE: This step is specifically needed for ENT. It allows us to access the required private HashiCorp repos.
